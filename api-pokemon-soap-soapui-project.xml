@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="c43f7c3b-036b-4ec4-bdd6-544eeeeadbb9" activeEnvironment="Default" name="api-pokemon-soap" resourceRoot="" soapui-version="5.7.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="08d4cf6f-e933-4d78-95de-4fe918eda304" wsaVersion="NONE" name="HeldItemPortSoap11" type="wsdl" bindingName="{http://www.api-pokemon-soap.com/pokemon/gen}HeldItemPortSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/xmy5395/Downloads/Examen_bankaya/api-pokemon-soap/api-pokemon-soap/src/main/resources/contract.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/xmy5395/Downloads/Examen_bankaya/api-pokemon-soap/api-pokemon-soap/src/main/resources/contract.wsdl"><con:part><con:url>file:/C:/Users/xmy5395/Downloads/Examen_bankaya/api-pokemon-soap/api-pokemon-soap/src/main/resources/contract.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://www.api-pokemon-soap.com/pokemon/gen" name="PokemonPortService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.api-pokemon-soap.com/pokemon/gen" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://www.api-pokemon-soap.com/pokemon/gen" schemaLocation="pokemon.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="getPokemonRequestByName">
+    <part name="name" element="tns:getPokemonRequestByName"/>
+  </message>
+  <message name="getPokemonResponseByName">
+    <part name="pokemon" type="tns:getPokemonResponseByName"/>
+  </message>
+  <message name="getPokemonRequestAbilities">
+    <part name="name" element="tns:getPokemonRequestAbilities"/>
+  </message>
+  <message name="getPokemonResponseAbilities">
+    <part name="abilities" type="tns:getPokemonResponseAbilities"/>
+  </message>
+  <message name="getHeldItemsRequest">
+    <part name="name" element="tns:getHeldItemsRequest"/>
+  </message>
+  <message name="getHeldItemsResponse">
+    <part name="abilities" type="tns:getHeldItemsResponse"/>
+  </message>
+  <portType name="PokemonPort">
+    <operation name="getPokemon">
+      <input message="tns:getPokemonRequestByName"/>
+      <output message="tns:getPokemonResponseByName"/>
+    </operation>
+  </portType>
+  <binding name="PokemonPortSoap11" type="tns:PokemonPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="getPokemon">
+      <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getPokemon"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="PokemonPortService">
+    <port name="PokemonPortSoap11" binding="tns:PokemonPortSoap11">
+      <soap:address location="http://localhost:8080/pokemon"/>
+    </port>
+  </service>
+  <portType name="AbilityPokemonPort">
+    <operation name="getAbilities">
+      <input message="tns:getPokemonRequestAbilities"/>
+      <output message="tns:getPokemonResponseAbilities"/>
+    </operation>
+  </portType>
+  <binding name="AbilityPokemonPortSoap11" type="tns:AbilityPokemonPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="getAbilities">
+      <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getAbilities"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AbilityPokemonPortService">
+    <port name="AbilityPokemonPortSoap11" binding="tns:AbilityPokemonPortSoap11">
+      <soap:address location="http://localhost:8080/pokemon/abilities"/>
+    </port>
+  </service>
+  <portType name="HeldItemPort">
+    <operation name="getHeldItems">
+      <input message="tns:getHeldItemsRequest"/>
+      <output message="tns:getHeldItemsResponse"/>
+    </operation>
+  </portType>
+  <binding name="HeldItemPortSoap11" type="tns:HeldItemPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="getHeldItems">
+      <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getHeldItems"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="HeldItemPortService">
+    <port name="HeldItemPortSoap11" binding="tns:HeldItemPortSoap11">
+      <soap:address location="http://localhost:8080/pokemon/held_items"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Users\xmy5395\Downloads\Examen_bankaya\api-pokemon-soap\api-pokemon-soap\src\main\resources\pokemon.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.api-pokemon-soap.com/pokemon/gen" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.api-pokemon-soap.com/pokemon/gen">
+  <xs:element name="getPokemonRequestByName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPokemonResponseByName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="pokemon" type="tns:pokemon"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPokemonRequestAbilities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPokemonResponseAbilities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="abilities" type="tns:AbilityData" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getHeldItemsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getHeldItemsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="held_items" type="tns:HeldItem" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="pokemon">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="base_experience" type="xs:int"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="location_area_encounters" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AbilityData">
+    <xs:sequence>
+      <xs:element name="ability" type="tns:Ability"/>
+      <xs:element name="is_hidden" type="xs:boolean"/>
+      <xs:element name="slot" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Ability">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HeldItem">
+    <xs:sequence>
+      <xs:element name="item" type="tns:Item"/>
+      <xs:element name="version_details" type="tns:VersionDetail" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Item">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VersionDetail">
+    <xs:sequence>
+      <xs:element name="rarity" type="xs:int"/>
+      <xs:element name="version" type="tns:Version"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Version">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/pokemon/held_items</con:endpoint></con:endpoints><con:operation id="a3a557e9-f9ea-4b03-9127-3a92fce38880" isOneWay="false" action="http://www.api-pokemon-soap.com/pokemon/gen/getHeldItems" name="getHeldItems" bindingOperationName="getHeldItems" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="79f99d01-41f0-446f-b0c4-4f65d04884ce" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/pokemon/held_items</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.api-pokemon-soap.com/pokemon/gen">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <gen:getHeldItemsRequest>\r
+         <gen:name>di</gen:name>\r
+      </gen:getHeldItemsRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.api-pokemon-soap.com/pokemon/gen/getHeldItems"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="29d59a41-f763-4192-88b4-5ce7ac924d79" wsaVersion="NONE" name="AbilityPokemonPortSoap11" type="wsdl" bindingName="{http://www.api-pokemon-soap.com/pokemon/gen}AbilityPokemonPortSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/xmy5395/Downloads/Examen_bankaya/api-pokemon-soap/api-pokemon-soap/src/main/resources/contract.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache/><con:endpoints><con:endpoint>http://localhost:8080/pokemon/abilities</con:endpoint></con:endpoints><con:operation id="7996d58e-9b55-4c39-a15e-c1cb68623563" isOneWay="false" action="http://www.api-pokemon-soap.com/pokemon/gen/getAbilities" name="getAbilities" bindingOperationName="getAbilities" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2bae306b-2e1a-4f6c-b101-8afecad9ce9d" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/pokemon/abilities</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.api-pokemon-soap.com/pokemon/gen">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <gen:getPokemonRequestAbilities>\r
+         <gen:name>di</gen:name>\r
+      </gen:getPokemonRequestAbilities>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.api-pokemon-soap.com/pokemon/gen/getAbilities"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="c35af5eb-0191-48e7-a017-e33022743cf7" wsaVersion="NONE" name="PokemonPortSoap11" type="wsdl" bindingName="{http://www.api-pokemon-soap.com/pokemon/gen}PokemonPortSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/xmy5395/Downloads/Examen_bankaya/api-pokemon-soap/api-pokemon-soap/src/main/resources/contract.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\xmy5395\Downloads\Examen_bankaya\api-pokemon-soap\api-pokemon-soap\src\main\resources\contract.wsdl"><con:part><con:url>file:\C:\Users\xmy5395\Downloads\Examen_bankaya\api-pokemon-soap\api-pokemon-soap\src\main\resources\contract.wsdl</con:url><con:content><![CDATA[<definitions targetNamespace="http://www.api-pokemon-soap.com/pokemon/gen" name="PokemonPortService" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.api-pokemon-soap.com/pokemon/gen" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <types>
+    <xsd:schema>
+      <xsd:import namespace="http://www.api-pokemon-soap.com/pokemon/gen" schemaLocation="pokemon.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="getPokemonRequestByName">
+    <part name="name" element="tns:getPokemonRequestByName"/>
+  </message>
+  <message name="getPokemonResponseByName">
+    <part name="pokemon" type="tns:getPokemonResponseByName"/>
+  </message>
+  <message name="getPokemonRequestAbilities">
+    <part name="name" element="tns:getPokemonRequestAbilities"/>
+  </message>
+  <message name="getPokemonResponseAbilities">
+    <part name="abilities" type="tns:getPokemonResponseAbilities"/>
+  </message>
+  <message name="getHeldItemsRequest">
+    <part name="name" element="tns:getHeldItemsRequest"/>
+  </message>
+  <message name="getHeldItemsResponse">
+    <part name="abilities" type="tns:getHeldItemsResponse"/>
+  </message>
+  <portType name="PokemonPort">
+    <operation name="getPokemon">
+      <input message="tns:getPokemonRequestByName"/>
+      <output message="tns:getPokemonResponseByName"/>
+    </operation>
+  </portType>
+  <binding name="PokemonPortSoap11" type="tns:PokemonPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="getPokemon">
+      <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getPokemon"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="PokemonPortService">
+    <port name="PokemonPortSoap11" binding="tns:PokemonPortSoap11">
+      <soap:address location="http://localhost:8080/pokemon"/>
+    </port>
+  </service>
+  <portType name="AbilityPokemonPort">
+    <operation name="getAbilities">
+      <input message="tns:getPokemonRequestAbilities"/>
+      <output message="tns:getPokemonResponseAbilities"/>
+    </operation>
+  </portType>
+  <binding name="AbilityPokemonPortSoap11" type="tns:AbilityPokemonPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="getAbilities">
+      <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getAbilities"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AbilityPokemonPortService">
+    <port name="AbilityPokemonPortSoap11" binding="tns:AbilityPokemonPortSoap11">
+      <soap:address location="http://localhost:8080/pokemon/abilities"/>
+    </port>
+  </service>
+  <portType name="HeldItemPort">
+    <operation name="getHeldItems">
+      <input message="tns:getHeldItemsRequest"/>
+      <output message="tns:getHeldItemsResponse"/>
+    </operation>
+  </portType>
+  <binding name="HeldItemPortSoap11" type="tns:HeldItemPort">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="getHeldItems">
+      <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getHeldItems"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="HeldItemPortService">
+    <port name="HeldItemPortSoap11" binding="tns:HeldItemPortSoap11">
+      <soap:address location="http://localhost:8080/pokemon/held_items"/>
+    </port>
+  </service>
+</definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>file:\C:\Users\xmy5395\Downloads\Examen_bankaya\api-pokemon-soap\api-pokemon-soap\src\main\resources\pokemon.xsd</con:url><con:content><![CDATA[<xs:schema targetNamespace="http://www.api-pokemon-soap.com/pokemon/gen" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.api-pokemon-soap.com/pokemon/gen">
+  <xs:element name="getPokemonRequestByName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPokemonResponseByName">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="pokemon" type="tns:pokemon"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPokemonRequestAbilities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getPokemonResponseAbilities">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="abilities" type="tns:AbilityData" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getHeldItemsRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="name" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="getHeldItemsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="held_items" type="tns:HeldItem" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="pokemon">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="base_experience" type="xs:int"/>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="location_area_encounters" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AbilityData">
+    <xs:sequence>
+      <xs:element name="ability" type="tns:Ability"/>
+      <xs:element name="is_hidden" type="xs:boolean"/>
+      <xs:element name="slot" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Ability">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="HeldItem">
+    <xs:sequence>
+      <xs:element name="item" type="tns:Item"/>
+      <xs:element name="version_details" type="tns:VersionDetail" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Item">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="VersionDetail">
+    <xs:sequence>
+      <xs:element name="rarity" type="xs:int"/>
+      <xs:element name="version" type="tns:Version"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Version">
+    <xs:sequence>
+      <xs:element name="name" type="xs:string"/>
+      <xs:element name="url" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/pokemon</con:endpoint></con:endpoints><con:operation id="8151986a-316d-4c93-8246-d1a67f60694a" isOneWay="false" action="http://www.api-pokemon-soap.com/pokemon/gen/getPokemon" name="getPokemon" bindingOperationName="getPokemon" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d41fa8be-1d43-46fe-b092-36fe96e6a926" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/pokemon</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.api-pokemon-soap.com/pokemon/gen">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <gen:getPokemonRequestByName>\r
+         <gen:name>ditto</gen:name>\r
+      </gen:getPokemonRequestByName>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.api-pokemon-soap.com/pokemon/gen/getPokemon"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
