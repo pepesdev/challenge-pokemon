@@ -1,0 +1,101 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://www.api-pokemon-soap.com/pokemon/gen"
+           targetNamespace="http://www.api-pokemon-soap.com/pokemon/gen"
+           elementFormDefault="qualified">
+
+    <xs:element name="getPokemonRequestByName">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getPokemonResponseByName">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="pokemon" type="tns:pokemon"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPokemonRequestAbilities">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPokemonResponseAbilities">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="abilities" type="tns:AbilityData" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getHeldItemsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getHeldItemsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="held_items" type="tns:HeldItem" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="pokemon">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="base_experience" type="xs:int"/>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="location_area_encounters" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="AbilityData">
+        <xs:sequence>
+            <xs:element name="ability" type="tns:Ability"/>
+            <xs:element name="is_hidden" type="xs:boolean"/>
+            <xs:element name="slot" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="Ability">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="url" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="HeldItem">
+        <xs:sequence>
+            <xs:element name="item" type="tns:Item"/>
+            <xs:element name="version_details" type="tns:VersionDetail" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Item">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="url" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="VersionDetail">
+        <xs:sequence>
+            <xs:element name="rarity" type="xs:int"/>
+            <xs:element name="version" type="tns:Version"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="Version">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="url" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://www.api-pokemon-soap.com/pokemon/gen"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://www.api-pokemon-soap.com/pokemon/gen"
+             name="PokemonPortService" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.api-pokemon-soap.com/pokemon/gen" schemaLocation="pokemon.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="getPokemonRequestByName">
+        <part name="name" element="tns:getPokemonRequestByName"/>
+    </message>
+    <message name="getPokemonResponseByName">
+        <part name="pokemon" type="tns:getPokemonResponseByName"/>
+    </message>
+
+    <message name="getPokemonRequestAbilities">
+        <part name="name" element="tns:getPokemonRequestAbilities"/>
+    </message>
+    <message name="getPokemonResponseAbilities">
+        <part name="abilities" type="tns:getPokemonResponseAbilities"/>
+    </message>
+
+    <message name="getHeldItemsRequest">
+        <part name="name" element="tns:getHeldItemsRequest"/>
+    </message>
+    <message name="getHeldItemsResponse">
+        <part name="abilities" type="tns:getHeldItemsResponse"/>
+    </message>
+
+    <portType name="PokemonPort">
+        <operation name="getPokemon">
+            <input message="tns:getPokemonRequestByName"/>
+            <output message="tns:getPokemonResponseByName"/>
+        </operation>
+    </portType>
+
+    <binding name="PokemonPortSoap11" type="tns:PokemonPort">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getPokemon">
+            <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getPokemon"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="PokemonPortService">
+        <port name="PokemonPortSoap11" binding="tns:PokemonPortSoap11">
+            <soap:address location="http://localhost:8080/pokemon"/>
+        </port>
+    </service>
+
+    <portType name="AbilityPokemonPort">
+        <operation name="getAbilities">
+            <input message="tns:getPokemonRequestAbilities"/>
+            <output message="tns:getPokemonResponseAbilities"/>
+        </operation>
+    </portType>
+
+    <binding name="AbilityPokemonPortSoap11" type="tns:AbilityPokemonPort">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getAbilities">
+            <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getAbilities"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="AbilityPokemonPortService">
+        <port name="AbilityPokemonPortSoap11" binding="tns:AbilityPokemonPortSoap11">
+            <soap:address location="http://localhost:8080/pokemon/abilities"/>
+        </port>
+    </service>
+
+    <portType name="HeldItemPort">
+        <operation name="getHeldItems">
+            <input message="tns:getHeldItemsRequest"/>
+            <output message="tns:getHeldItemsResponse"/>
+        </operation>
+    </portType>
+
+    <binding name="HeldItemPortSoap11" type="tns:HeldItemPort">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getHeldItems">
+            <soap:operation soapAction="http://www.api-pokemon-soap.com/pokemon/gen/getHeldItems"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="HeldItemPortService">
+        <port name="HeldItemPortSoap11" binding="tns:HeldItemPortSoap11">
+            <soap:address location="http://localhost:8080/pokemon/held_items"/>
+        </port>
+    </service>
+
+</definitions>

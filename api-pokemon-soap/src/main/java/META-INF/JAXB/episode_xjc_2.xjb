@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bindings version="3.0" xmlns="https://jakarta.ee/xml/ns/jaxb">
+  <!--
+
+Este archivo ha sido generado por Eclipse Implementation of JAXB v3.0.0 
+Visite https://eclipse-ee4j.github.io/jaxb-ri 
+Todas las modificaciones realizadas en este archivo se perderán si se vuelve a compilar el esquema de origen. 
+Generado el: 2024.10.22 a las 02:08:52 AM CST 
+
+  -->
+  <bindings scd="x-schema::tns" xmlns:tns="http://www.api-pokemon-soap.com/pokemon/gen">
+    <schemaBindings map="false">
+      <package name="com.api_pokemon_soap.pokemon.gen"/>
+    </schemaBindings>
+    <bindings scd="tns:getPokemonRequestByName">
+      <class ref="com.api_pokemon_soap.pokemon.gen.GetPokemonRequestByName"/>
+    </bindings>
+    <bindings scd="tns:getPokemonResponseByName">
+      <class ref="com.api_pokemon_soap.pokemon.gen.GetPokemonResponseByName"/>
+    </bindings>
+    <bindings scd="~tns:pokemon">
+      <class ref="com.api_pokemon_soap.pokemon.gen.Pokemon"/>
+    </bindings>
+    <bindings scd="tns:getPokemonRequestAbilities">
+      <class ref="com.api_pokemon_soap.pokemon.gen.GetPokemonRequestAbilities"/>
+    </bindings>
+    <bindings scd="tns:getPokemonResponseAbilities">
+      <class ref="com.api_pokemon_soap.pokemon.gen.GetPokemonResponseAbilities"/>
+    </bindings>
+    <bindings scd="~tns:AbilityData">
+      <class ref="com.api_pokemon_soap.pokemon.gen.AbilityData"/>
+    </bindings>
+    <bindings scd="tns:getHeldItemsRequest">
+      <class ref="com.api_pokemon_soap.pokemon.gen.GetHeldItemsRequest"/>
+    </bindings>
+    <bindings scd="tns:getHeldItemsResponse">
+      <class ref="com.api_pokemon_soap.pokemon.gen.GetHeldItemsResponse"/>
+    </bindings>
+    <bindings scd="~tns:HeldItem">
+      <class ref="com.api_pokemon_soap.pokemon.gen.HeldItem"/>
+    </bindings>
+    <bindings scd="~tns:Ability">
+      <class ref="com.api_pokemon_soap.pokemon.gen.Ability"/>
+    </bindings>
+    <bindings scd="~tns:Item">
+      <class ref="com.api_pokemon_soap.pokemon.gen.Item"/>
+    </bindings>
+    <bindings scd="~tns:VersionDetail">
+      <class ref="com.api_pokemon_soap.pokemon.gen.VersionDetail"/>
+    </bindings>
+    <bindings scd="~tns:Version">
+      <class ref="com.api_pokemon_soap.pokemon.gen.Version"/>
+    </bindings>
+  </bindings>
+</bindings>
+
