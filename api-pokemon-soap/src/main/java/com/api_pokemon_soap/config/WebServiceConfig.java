@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
+import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
 import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
 
@@ -20,6 +21,17 @@ public class WebServiceConfig  {
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
         return new ServletRegistrationBean<>(servlet,"/pokemon/*");
+    }
+
+
+    @Bean(name = "pokemonws")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema pokemonSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("PokemonPort");
+        wsdl11Definition.setLocationUri("/pokemon");
+        wsdl11Definition.setTargetNamespace("http://www.api-pokemon-soap.com/pokemon/gen");
+        wsdl11Definition.setSchema(pokemonSchema);
+        return wsdl11Definition;
     }
 
     @Bean(name="pokemon")

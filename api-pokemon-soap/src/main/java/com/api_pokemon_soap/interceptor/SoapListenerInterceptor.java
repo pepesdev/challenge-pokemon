@@ -12,82 +12,87 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.ws.context.MessageContext;
 import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.soap.SoapMessage;
+
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.util.Date;
-import java.util.Objects;
-
 
 public class SoapListenerInterceptor implements EndpointInterceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SoapListenerInterceptor.class);
+
     @Autowired
     private RequestLogRepository requestLogRepository;
-    @Autowired
+
+    @Autowired(required = false)
     private KafkaTemplate<String, String> kafkaTemplate;
+
     @Autowired
     private String requestLogTopic;
-     long startTime;
-    String requestOut;
-     String responseOut;
-     String clientIp;
-     String method;
 
     @Override
-    public boolean handleRequest(MessageContext messageContext, Object endpoint) throws Exception {
-        responseOut = null;
-        startTime = System.currentTimeMillis();
-        HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        clientIp = request.getRemoteAddr();
-        SoapMessage soapRequest = (SoapMessage) messageContext.getRequest();
-        requestOut = logSoapMessage(soapRequest);
-        method = soapRequest.getSoapAction();
+    public boolean handleRequest(MessageContext messageContext, Object endpoint) {
         return true;
     }
 
     @Override
-    public boolean handleResponse(MessageContext messageContext, Object endpoint) throws Exception {
-        SoapMessage soapResponse = (SoapMessage) messageContext.getResponse();
-        responseOut = logSoapMessage(soapResponse);
+    public boolean handleResponse(MessageContext messageContext, Object endpoint) {
         return true;
     }
 
     @Override
-    public boolean handleFault(MessageContext messageContext, Object endpoint) throws Exception {
-        SoapMessage soapFault = (SoapMessage) messageContext.getResponse();
-        if(responseOut==null){
-            responseOut = logSoapMessage(soapFault);
+    public boolean handleFault(MessageContext messageContext, Object endpoint) {
+        return true;
+    }
+
+    @Override
+    public void afterCompletion(MessageContext messageContext, Object endpoint, Exception ex) {
+        try {
+            RequestLog requestLog = new RequestLog();
+            requestLog.setDate_request(new Date());
+            requestLog.setElapsedTime("N/A");
+            requestLog.setIp_origin(resolveClientIp());
+            requestLog.setMethod(resolveSoapAction((SoapMessage) messageContext.getRequest()));
+            requestLog.setRequest(logSoapMessage((SoapMessage) messageContext.getRequest()));
+            requestLog.setResponse(logSoapMessage((SoapMessage) messageContext.getResponse()));
+
+            requestLogRepository.save(requestLog);
+
+            if (kafkaTemplate != null) {
+                kafkaTemplate.send(requestLogTopic, requestLog.toString());
+            }
+        } catch (Exception loggingError) {
+            LOGGER.warn("No se pudo registrar la petición SOAP sin afectar la respuesta del cliente: {}", loggingError.getMessage());
         }
-        return true;
-    }
 
-    @Override
-    public void afterCompletion(MessageContext messageContext, Object endpoint, Exception ex) throws Exception {
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
         if (ex != null) {
-            LOGGER.info("SOAP request completed with error. ");
-            LOGGER.info(ex.getMessage());
+            LOGGER.info("SOAP request completed with error: {}", ex.getMessage());
         } else {
-            LOGGER.info("SOAP request completed successfully. ");
+            LOGGER.info("SOAP request completed successfully.");
         }
-
-        RequestLog requestLog = new RequestLog();
-        requestLog.setRequest(requestOut);
-        requestLog.setResponse(responseOut);
-        requestLog.setElapsedTime(duration + "ms");
-        requestLog.setDate_request(new Date());
-        requestLog.setIp_origin(clientIp);
-        requestLog.setMethod(method);
-        requestLogRepository.save(requestLog);
-        kafkaTemplate.send(requestLogTopic, requestLog.toString());
     }
 
+    private String resolveClientIp() {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes == null) {
+            return "unknown";
+        }
+        HttpServletRequest request = attributes.getRequest();
+        return request != null ? request.getRemoteAddr() : "unknown";
+    }
 
-    String  logSoapMessage(SoapMessage soapMessage) throws TransformerException {
+    private String resolveSoapAction(SoapMessage soapMessage) {
+        if (soapMessage == null) {
+            return "unknown";
+        }
+        String action = soapMessage.getSoapAction();
+        return (action == null || action.isBlank()) ? "unknown" : action;
+    }
+
+    String logSoapMessage(SoapMessage soapMessage) throws TransformerException {
         if (soapMessage == null || soapMessage.getPayloadSource() == null) {
             return "El mensaje SOAP o su contenido está vacío.";
         }
@@ -96,6 +101,4 @@ public class SoapListenerInterceptor implements EndpointInterceptor {
         transformer.transform(soapMessage.getPayloadSource(), new StreamResult(stringWriter));
         return stringWriter.toString();
     }
-
-
 }

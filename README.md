@@ -48,9 +48,9 @@ Párametro de entrada **name** que es el nombre del pokemon a buscar.
      <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.api-pokemon-soap.com/pokemon/gen">
      <soapenv:Header/>
         <soapenv:Body>
-         <gen:getPokemonRequestAbilities>
+         <gen:getPokemonRequestByName>
             <gen:name>ditto</gen:name>
-         </gen:getPokemonRequestAbilities>
+         </gen:getPokemonRequestByName>
       </soapenv:Body>
     </soapenv:Envelope>
 
@@ -85,7 +85,7 @@ Párametro de entrada **name** que es el nombre del pokemon a buscar.
 Párametro de entrada **name**  es el nombre del pokemon a buscar y devolvera un listado de items.
 
   **endpoint**
- `http://localhost:8080/pokemon/held_items`
+ `http://localhost:8080/pokemon`
 
 **Request del metodo**
 
@@ -233,7 +233,7 @@ Párametro de entrada **name**  es el nombre del pokemon a buscar y devolvera un
 Párametro de entrada **name**  es el nombre del pokemon a buscar y devolvera un listado de abilidades.
 
   **endpoint**
- `http://localhost:8080/pokemon/abilities`
+ `http://localhost:8080/pokemon`
 
 **Request del metodo**
  
@@ -422,3 +422,47 @@ Los proyectos spring-boot **/challenge-pokemon/** cuentan con una dependencia en
 
 
  
+
+### Prueba rápida desde cliente (curl)
+
+Si pruebas desde un cliente y no recibes respuesta, valida primero que el endpoint SOAP es único:
+`http://localhost:8080/pokemon`
+
+También puedes validar contrato en:
+`http://localhost:8080/pokemon/pokemonws.wsdl`
+
+Ejemplo **getPokemonRequestByName**:
+
+```bash
+curl -X POST 'http://localhost:8080/pokemon' \
+  -H 'Content-Type: text/xml; charset=utf-8' \
+  -H 'SOAPAction: ""' \
+  --data-binary @- <<'XML'
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.api-pokemon-soap.com/pokemon/gen">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <gen:getPokemonRequestByName>
+      <gen:name>ditto</gen:name>
+    </gen:getPokemonRequestByName>
+  </soapenv:Body>
+</soapenv:Envelope>
+XML
+```
+
+Ejemplo **getPokemonRequestAbilities**:
+
+```bash
+curl -X POST 'http://localhost:8080/pokemon' \
+  -H 'Content-Type: text/xml; charset=utf-8' \
+  -H 'SOAPAction: ""' \
+  --data-binary @- <<'XML'
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gen="http://www.api-pokemon-soap.com/pokemon/gen">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <gen:getPokemonRequestAbilities>
+      <gen:name>ditto</gen:name>
+    </gen:getPokemonRequestAbilities>
+  </soapenv:Body>
+</soapenv:Envelope>
+XML
+```
