@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.ws.context.MessageContext;
@@ -25,6 +26,10 @@ public class SoapListenerInterceptor implements EndpointInterceptor {
     private static final Logger LOGGER = LoggerFactory.getLogger(SoapListenerInterceptor.class);
     @Autowired
     private RequestLogRepository requestLogRepository;
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+    @Autowired
+    private String requestLogTopic;
      long startTime;
     String requestOut;
      String responseOut;
@@ -78,6 +83,7 @@ public class SoapListenerInterceptor implements EndpointInterceptor {
         requestLog.setIp_origin(clientIp);
         requestLog.setMethod(method);
         requestLogRepository.save(requestLog);
+        kafkaTemplate.send(requestLogTopic, requestLog.toString());
     }
 
 
